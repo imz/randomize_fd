@@ -1,5 +1,6 @@
 #define _GNU_SOURCE
 #include <dlfcn.h>
+#include <assert.h>
 
 #include <unistd.h>
 #define RANDOMIZE_FD_STEP 6
@@ -27,8 +28,11 @@ static int randomize_fd (const int old_result)
 
 typedef int (*orig_open_f_type)(const char *pathname, int flags);
 
+static orig_open_f_type orig_open = NULL;
 int open (const char *pathname, int flags, ...)
 {
-  const orig_open_f_type orig_open = (orig_open_f_type) dlsym (RTLD_NEXT, "open");
+  if (!orig_open)
+    orig_open = (orig_open_f_type) dlsym (RTLD_NEXT, "open");
+  assert (orig_open);
   return randomize_fd (orig_open (pathname, flags));
 }
