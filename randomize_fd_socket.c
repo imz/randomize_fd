@@ -1,18 +1,18 @@
 #define _GNU_SOURCE
 
-#include <fcntl.h> /* open -- to check for conflicting types */
+#include <sys/socket.h> /* socket -- to check for conflicting types */
 
 #include <dlfcn.h>
 #include <assert.h>
 #include "randomize_fd.h"
 
-typedef int (*orig_open_f_type)(const char *pathname, int flags);
+typedef int (*orig_socket_f_type)(int domain, int type, int protocol);
 
-static orig_open_f_type orig_open = 0;
-int open (const char *pathname, int flags, ...)
+static orig_socket_f_type orig_socket = 0;
+int socket (int domain, int type, int protocol)
 {
-  if (!orig_open)
-    orig_open = (orig_open_f_type) dlsym (RTLD_NEXT, "open");
-  assert (orig_open);
-  return randomize_fd (orig_open (pathname, flags));
+  if (!orig_socket)
+    orig_socket = (orig_socket_f_type) dlsym (RTLD_NEXT, "socket");
+  assert (orig_socket);
+  return randomize_fd (orig_socket (domain, type, protocol));
 }

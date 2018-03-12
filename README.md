@@ -9,8 +9,8 @@ file descriptors in a sequence of `open` or `socket` followed by
 it is a quick solution for 1 until we run out of the available number
 of fds.)
 
-Here, we solve this problem by providing a wrapper around `open` to be
-LD_PRELOADed. (And `socket` is a [TODO](TODO.md).)
+Here, we solve this problem by providing wrappers around `open` and
+`socket` to be LD_PRELOADed.
 
 Example (normal behavior; the same descriptor `3` is re-used):
 

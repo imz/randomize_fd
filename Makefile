@@ -1,7 +1,9 @@
-all: randomize_fd_open.so
+all: randomize_fd_open.so randomize_fd_socket.so
+
+.PHONY: all clean
 
 clean::
-	rm -f randomize_fd_open.so
+	rm -f randomize_fd_open.so randomize_fd_socket.so
 
 CFLAGS ?= -fPIC -Wall -Werror -O3
 
