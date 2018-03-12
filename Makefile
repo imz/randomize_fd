@@ -6,4 +6,4 @@ clean::
 C_FLAGS ?= -Wall -Werror
 
 %.so: %.c Makefile
-	$(CC) $(C_FLAGS) -shared -fPIC $< -o $@
+	$(CC) $(C_FLAGS) -shared -fPIC $< -ldl -o $@
