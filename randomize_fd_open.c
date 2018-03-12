@@ -1,9 +1,12 @@
 #define _GNU_SOURCE
+
+#include <unistd.h> /* dup */
+#define RANDOMIZE_FD_STEP 6
+
+#include <fcntl.h> /* open -- to check for conflicting types */
+
 #include <dlfcn.h>
 #include <assert.h>
-
-#include <unistd.h>
-#define RANDOMIZE_FD_STEP 6
 
 static int dup_many_times_and_close (const int old_result, const unsigned int times)
 {
