@@ -1,37 +1,14 @@
 #define _GNU_SOURCE
 
-#include <unistd.h> /* dup */
-#define RANDOMIZE_FD_STEP 6
-
 #include <fcntl.h> /* open -- to check for conflicting types */
 
 #include <dlfcn.h>
 #include <assert.h>
-
-static int dup_many_times_and_close (const int old_result, const unsigned int times)
-{
-  if (times == 0 || old_result < 0)
-    return old_result;
-
-  const int final_result = dup_many_times_and_close (dup (old_result), times - 1);
-  if (close (old_result))
-    ;
-  return final_result;
-}
-
-static int randomize_fd (const int old_result)
-{
-  static char phase; /* the initial value is not very important */
-
-  if (old_result < 0)
-    return 0;
-
-  return dup_many_times_and_close (old_result, RANDOMIZE_FD_STEP * (1 + (phase++ & 0x7)));
-}
+#include "randomize_fd.h"
 
 typedef int (*orig_open_f_type)(const char *pathname, int flags);
 
-static orig_open_f_type orig_open = NULL;
+static orig_open_f_type orig_open = 0;
 int open (const char *pathname, int flags, ...)
 {
   if (!orig_open)
