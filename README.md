@@ -38,3 +38,7 @@ Example (with our intervention, different descriptors are used):
     read(15</etc/altlinux-release>, "", 131072) = 0
     +++ exited with 0 +++
 
+## URL
+
+* <http://git.altlinux.org/people/imz/packages/randomize_fd.git>
+* <https://github.com/imz/randomize_fd>
