@@ -12,6 +12,8 @@ Url: http://git.altlinux.org/people/imz/packages/randomize_fd.git
 Source: %name-%version.tar
 
 BuildRequires: gcc
+# due to mkdir implied by install -D -t
+BuildPreReq: coreutils >= 8.27
 
 %description
 Sometimes (to reproduce a bug) we want to force the use of different
