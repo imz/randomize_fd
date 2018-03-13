@@ -1,10 +1,8 @@
-#define _GNU_SOURCE
-
-#include <fcntl.h> /* open -- to check for conflicting types */
-
+#include "randomize_fd.h"
 #include <dlfcn.h>
 #include <assert.h>
-#include "randomize_fd.h"
+
+#include <fcntl.h> /* open -- to check for conflicting types */
 
 typedef int (*orig_open_f_type)(const char *pathname, int flags);
 

@@ -1,10 +1,8 @@
-#define _GNU_SOURCE
-
-#include <sys/socket.h> /* socket -- to check for conflicting types */
-
+#include "randomize_fd.h"
 #include <dlfcn.h>
 #include <assert.h>
-#include "randomize_fd.h"
+
+#include <sys/socket.h> /* socket -- to check for conflicting types */
 
 typedef int (*orig_socket_f_type)(int domain, int type, int protocol);
 
