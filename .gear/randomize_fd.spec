@@ -34,10 +34,11 @@ socket(2) to be LD_PRELOADed.
 
 %install
 install -m0644 -D *.so -t %buildroot%_libdir
+ln -sfv /usr/share/license/LGPL-3 -T COPYING
 
 %files
 %_libdir/*.so
-%doc README.md TODO.md
+%doc README.md TODO.md COPYING
 
 %changelog
 * Mon Mar 12 2018 Ivan Zakharyaschev <imz@altlinux.org> 0.1-alt1
